@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Submission</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f9;
+    }
+    .container {
+      width: 300px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    input[type="text"], button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Submit Your Details</h2>
+  <form id="infoForm">
+    <input type="text" id="nameCompany" name="nameCompany" placeholder="Name / Company Name" required>
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<script>
+  document.getElementById('infoForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const nameCompany = document.getElementById('nameCompany').value;
+    const date = new Date().toISOString();
+
+    // Split the input into name and company using the first "/" as a separator
+    const [name, company] = nameCompany.split('/').map(str => str.trim());
+
+    // Create log object
+    const log = { name, company, date };
+
+    // Get existing logs from localStorage, or create an empty array if none exists
+    const logs = JSON.parse(localStorage.getItem('logs')) || [];
+
+    // Add the new log to the array
+    logs.push(log);
+
+    // Store the updated logs in localStorage
+    localStorage.setItem('logs', JSON.stringify(logs));
+
+    // Show a thank you message (optional) and redirect to the new URL
+    alert("Thank you for your submission!");
+    window.location.href = "https://www.advantagegolfcars.com/schedule_service"; // Redirect to the desired URL
+  });
+</script>
+
+</body>
+</html>
